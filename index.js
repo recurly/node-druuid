@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-var bigint = require('bigint');
+var bignum = require('bignum');
 
 /**
  * The offset from which druuid UUIDs are generated (in milliseconds).
@@ -28,7 +28,7 @@ exports.epoch = 0;
 exports.gen = function gen(date, epoch){
   if (!date) date = new Date();
   if (!epoch) epoch = exports.epoch;
-  var id = bigint(date - epoch).shiftLeft(64 - 41);
+  var id = bignum(date - epoch).shiftLeft(64 - 41);
   return id.or(Math.round(Math.random() * 1e16) % Math.pow(2, 64 - 41));
 };
 
@@ -48,6 +48,6 @@ exports.gen = function gen(date, epoch){
 
 exports.time = function(uuid, epoch){
   if (!epoch) epoch = exports.epoch;
-  var ms = bigint(uuid).shiftRight(64 - 41).toNumber();
+  var ms = bignum(uuid).shiftRight(64 - 41).toNumber();
   return new Date(ms + epoch);
 };
