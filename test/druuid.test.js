@@ -66,5 +66,12 @@ describe('druuid', function(){
       });
       after(function(){ druuid.epoch = oldEpoch; });
     });
+
+    context('with uuid as Buffer', function() {
+      var buffer = bignum(uuid).toBuffer();
+      it('determines when a UUID was generated', function(){
+        druuid.time(buffer).should.eql(datetime);
+      });
+    });
   });
 });
