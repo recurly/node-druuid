@@ -40,7 +40,7 @@ exports.gen = function gen(date, epoch){
  *     druuid.time(11142943683383068069);
  *     // => Sat Feb 04 2012 00:00:00 GMT-0800 (PST)
  *
- * @param {BigInt|Number|String} uuid
+ * @param {BigInt|Number|String|Buffer} uuid
  * @param {Number} [epoch=druuid.epoch] offset
  * @return {Date} when UUID was generated
  * @public
@@ -48,6 +48,11 @@ exports.gen = function gen(date, epoch){
 
 exports.time = function(uuid, epoch){
   if (!epoch) epoch = exports.epoch;
-  var ms = bignum(uuid).shiftRight(64 - 41).toNumber();
+  if (typeof(Buffer) != 'undefined' && uuid instanceof Buffer) {
+      var bn = bignum.fromBuffer(uuid);
+  } else {
+      bn = bignum(uuid);
+  }
+  var ms = bn.shiftRight(64 - 41).toNumber();
   return new Date(ms + epoch);
 };
