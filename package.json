@@ -1,6 +1,6 @@
 {
   "name": "druuid",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Date-relative UUIDs",
   "contributors": [
     "Stephen Celis <stephen@recurly.com>"
